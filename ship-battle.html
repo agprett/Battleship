@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Battleship</title>
+  <link rel='stylesheet' href='ship-battle.css'/>
+  <link rel='stylesheet' href='reset.css'/>
+</head>
+<body>
+  <section id='cover'>
+    <button id='cover-button'>Player Ready?</button>
+  </section>
+  <section class='top-half'>
+    <div class='launcher'>
+      <input placeholder='Enter coordinates' class='top-input'></input>
+      <button id='top-fire'>Shoot!</button>
+    </div>
+    <div class='board' id='top-board'></div>
+  </section>
+  <div class='seperator'></div>
+  <section class='bottom-half'>
+    <div class='launcher'>
+      <input placeholder='Enter coordinates' class='bottom-input'></input>
+      <button id='bottom-fire'>Shoot!</button>
+    </div>
+    <div class='board' id='bottom-board'></div>
+  </section>
+</body>
+<script src='ship-battle.js'></script>
+</html>
