@@ -6,32 +6,36 @@ body{
 
 #cover{
   height: 5vh;
-  width: 50vw;
-  background-color: forestgreen;
+  width: 550px;
+  background-color:  forestgreen;
   position: fixed;
   top: 0px;
-  left: 25vw;
+  left: 19vw;
   opacity: 1;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  opacity: 1;
 }
 
 .board{
   height: 500px;
   width: 500px;
   border: 1px solid black;
-  margin: 5%;
   display: flex;
   flex-wrap: wrap;
 }
 
-.launcher{
-  width: 25%;
+/* .launcher{
+
 }
 
 input{
-  margin-left: 10%;
+
+} */
+
+p{
+  text-align: center;
 }
 
 .top-half{
@@ -39,7 +43,34 @@ input{
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-around;
+}
+
+.top-right{
+  height: 90vh;
+  width: 30vw;
+  border: 1px solid black;
+  display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+  align-content: stretch;
+}
+
+#top-shot-log{
+  height: 250px;
+  width: 250px;
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#bottom-shot-log{
+  height: 250px;
+  width: 250px;
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .seperator{
@@ -53,6 +84,19 @@ input{
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-around;
+}
+
+
+.bottom-right{
+  height: 90vh;
+  width: 30vw;
+  border: 1px solid black;
+  display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
 }
 
 button{

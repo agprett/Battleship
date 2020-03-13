@@ -1,7 +1,7 @@
 // map setup
 let counter = 1
 let square
-let clickedId
+let clickedClassName
 let clickedSquare
 let num = 10
 let cover = document.getElementById('cover')
@@ -12,16 +12,13 @@ let bottomBoard = document.getElementById('bottom-board')
 
 // tracks button click location, changes square color
 function colorizer(e){
-  clickedId = e.target.id
-  clickedSquare = document.getElementById(clickedId)
-  if(clickedSquare.style.background.includes('blue')){
-    clickedSquare.style.background = 'grey'
-    console.log(clickedSquare)
+  clickedClassName = e.target.className
+  clickedSquare = document.getElementsByClassName(clickedClassName)
+  if(clickedSquare[0].style.background.includes('blue')){
+    clickedSquare[0].style.background = 'grey'
   } else {
-    clickedSquare.style.background = 'blue'
-    console.log(clickedSquare)
+    clickedSquare[0].style.background = 'blue'
   }
-  // square.classList.toggle('hit-square')
 }
 
 // assigning IDs to the ID array
@@ -37,9 +34,13 @@ function createId(){
 function addId(){
   for(let i = 0; i < counter - 1; i++){
     if(i <= 99){
-      document.getElementById(`${i + 1}`).setAttribute('id', `${idForSquare[i + 1]}`)
+      let insideText = document.getElementsByClassName(`${i + 1}`)[0]
+      insideText.setAttribute('id', `${idForSquare[i]}`)
+      insideText.innerText = insideText.id
     } else if(i > 99){
-      // document.getElementById(`${i + 1}`).setAttribute('id', `${idForSquare[(i - 100)]}`)
+      let insideText = document.getElementsByClassName(`${i + 1}`)[0]
+      insideText.setAttribute('id', `${idForSquare[(i - 100)]}`)
+      insideText.innerText = insideText.id
     }
   }
 }
@@ -47,16 +48,15 @@ function addId(){
 function makeBoard(){
   // creates grid inside of boards
   square = document.createElement('div')
-  square.className = 'square-hit-box'
-  square.style = `height: 50px; width: 50px; border: 1px solid black; box-sizing: border-box; background: blue`
-  square.id = counter
+  square.style = `height: 50px; width: 50px; border: 1px solid black; box-sizing: border-box; background: blue; color: white`
+  square.className = counter
   counter++
-
+  
   //calls colorizer function, applies to the squares
   square.addEventListener('click', e => colorizer(e))
-
+  
   //applies squares to correct grids
-  if(square.id < 101){
+  if(square.className < 101){
     topBoard.appendChild(square)
   } else {
     bottomBoard.appendChild(square)
@@ -66,6 +66,32 @@ function makeBoard(){
 //makes the sqaures fill the boards
 for(let i = 0; i < (num * num * 2); i++){
   makeBoard()
+}
+
+let counter2 = 1000
+let square2
+let topShotLog = document.getElementById('top-shot-log')
+let bottomShotLog = document.getElementById('bottom-shot-log')
+
+function makeShotLog(){
+  // creates grid inside of boards
+  square2 = document.createElement('div')
+  square2.className = 'square-shot-log'
+  square2.style = `height: 25px; width: 25px; border: 1px solid black; box-sizing: border-box; background: white`
+  square2.className = counter2
+  counter2++
+
+  //applies squares to correct grids
+  if(square2.className < 1100){
+    topShotLog.appendChild(square2)
+  } else {
+    bottomShotLog.appendChild(square2)
+  }
+}
+
+//makes the sqaures fill the boards
+for(let i = 0; i < (num * num * 2); i++){
+  makeShotLog()
 }
 
 createId()
@@ -80,13 +106,27 @@ let bottomFire = document.getElementById('bottom-fire')
 let coverButton = document.getElementById('cover-button')
 let coordinate
 let shotSquare
+let loggedShot
 
 function airStrike(spot){
-  if(spot.includes('blue')){
-    console.alert('miss!')
+  if(parseInt(spot.className) < 101){
+    loggedShot = document.getElementsByClassName(parseInt(spot.className) + 1099)
+  } else {
+    loggedShot = document.getElementsByClassName(parseInt(spot.className) + 899)
+  }
+  console.log(loggedShot)
+  if(spot.style.background === 'blue'){
+    alert('Miss!')
+    spot.style.background = 'green'
+    loggedShot[0].style.background = 'green'
+  } else if(spot.style.background === 'grey'){
+    alert('Hit!')
+    spot.style.background = 'red'
+    loggedShot[0].style.background = 'red'
   }
 }
 
+// logs and pushes which square to shoot at
 topInput.addEventListener('keypress', e => {
   if(e.code === 'Enter'){
     coordinate = e.target.value
@@ -94,9 +134,10 @@ topInput.addEventListener('keypress', e => {
 })
 
 topFire.addEventListener('click', e => {
-  let shotBoard = document.querySelectorAll(`#${coordinate}`)
-  shotSquare = shotBoard[1]
-  // airStrike(shotSquare)
+  let shotArray = document.querySelectorAll(`#${coordinate}`)
+  let shotSquare = shotArray[1]
+  airStrike(shotSquare)
+  cover.style.opacity = '1'
 })
 
 bottomInput.addEventListener('keypress', e => {
@@ -106,16 +147,18 @@ bottomInput.addEventListener('keypress', e => {
 })
 
 bottomFire.addEventListener('click', e => {
-  let shotBoard = document.querySelectorAll(`#${coordinate}`)
-  shotSquare = shotBoard[0]
-  // airStrike(shotSquare)
+  let shotArray = document.querySelectorAll(`#${coordinate}`)
+  let shotSquare = shotArray[0]
+  airStrike(shotSquare)
+  cover.style.opacity = '1'
 })
 
 // makes button on the cover work
 coverButton.addEventListener('click', e => {
-  if(cover.style.height === '5vh'){
-    cover.style.height = '100vh'
+  if(cover.style.height === '100vh'){
+    cover.style.opacity = '0'
   } else {
-    cover.style.height = '5vh'
+    cover.style.height = '100vh'
   }
 })
+
